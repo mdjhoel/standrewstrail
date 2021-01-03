@@ -1,0 +1,74 @@
+<html>
+
+    <head>
+        <link rel='stylesheet' href='css/leaflet.css'/>
+        <link rel='stylesheet' href='css/materialize.min.css'/>
+        <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+        <script src='js/leaflet.js'></script>
+        <script src='js/materialize.min.js'></script>
+        <script src="js/chart.js@2.8.0"></script>
+        <script src="sa_detour.geojson"></script>
+        <script src="data.js"></script>
+        <title>St Andrews Trail</title>
+    </head>
+
+    <body>
+        <nav>
+            <div class="nav-wrapper blue darken-4">
+                <img src='shield.svg' style='width:50; margin: 10px;'><span class="brand-logo">St Andrews Trail</span>
+              
+              <ul id="nav-mobile" class="right hide-on-med-and-down">
+                <li><a href="about.html">About</a></li>
+                <li><a href="badges.html"></a></li>
+              </ul>
+            </div>
+        </nav>
+        
+        <div class="row">
+            <div class="col s12">
+                <div class="card">
+                    <div class="card-content">
+                      <div id='map' style='width:100%; height:80%'></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </body>
+    
+    <script>
+        map();
+        function map() {
+            // Set up the world map
+            
+            
+            map = new L.Map('map');
+            var cartocdn = 'https://{s}.basemaps.cartocdn.com/light_all/{z}/{x}/{y}.png';
+            
+            // https://carto.com/help/building-maps/basemap-list/
+            carto = new L.TileLayer(cartocdn);
+            map.setView([45.084,-67.06],14.1); // centered on SA lat, long
+            map.addLayer(carto);
+            
+            L.geoJSON(geojsonfeatures, {
+                style: function(feature) {
+                    switch (feature.properties.category) {
+                        case 'satrail': return {color: "#ff0000"};
+                        case 'vanhorne':   return {color: "#0d47a1"};
+                        case 'road':   return {color: "#996633"};
+                    }
+                }}).addTo(map);
+                
+
+            
+            // Loop to write out circles from test.js
+            //conf_x_factor = 5;
+            for (i=0;i<data.length;i++) {
+                console.log(data[i]);
+                L.circle(data[i]['coordinates'],{color:'blue',fillColor:'#66ccff',fillOpacity:0.5,radius: 30}).addTo(map).bindPopup("<h5>" + data[i]['name'] + "</h5><p>" + data[i]['desc'] + "</p><br><a href='photos/" + data[i]['photo'] + ".jpg' target='_blank'><img src='photos/" + data[i]['photo'] + "_th.jpg'></a>");    
+            }
+        }
+    
+    </script>
+    
+</html>
