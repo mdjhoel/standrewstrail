@@ -1,12 +1,17 @@
 <html>
 
     <head>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js" integrity="sha256-9/aliU8dGd2tb6OSsuzixeV4y/faTqgFtohetphbbj0=" crossorigin="anonymous"></script>
+        
+        <!-- Compiled and minified CSS -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+
+        <!-- Compiled and minified JavaScript -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
         <link rel='stylesheet' href='css/leaflet.css'/>
-        <link rel='stylesheet' href='css/materialize.min.css'/>
         <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
         <script src='js/leaflet.js'></script>
-        <script src='js/materialize.min.js'></script>
-        <script src="js/chart.js@2.8.0"></script>
         <script src="sa_detour.geojson"></script>
         <script src="data.js"></script>
         <title>St Andrews Trail</title>
@@ -19,7 +24,6 @@
               
               <ul id="nav-mobile" class="right hide-on-med-and-down">
                 <li><a href="about.html">About</a></li>
-                <li><a href="badges.html"></a></li>
               </ul>
             </div>
         </nav>
@@ -33,10 +37,61 @@
                 </div>
             </div>
         </div>
+        
+        <!-- Modal Structure -->
+        <div id="modal1" class="modal">
+            <div class="modal-content">
+                <h4>St Andrews Trail version 1.0</h4>
+                <p>The Van Horne trail is great for short walks in town, but what about longer bike rides, through hikes and connections to the NB trail system? This site aims to fill in the blanks left by <a href="https://goo.gl/maps/D5xHeoD7GiPTvoHH7" target="_blank">Google Maps</a> and provide an up to date map on the St Andrews trail - our adventure connection to the interior of New Brunswick.</p>
+                <p>Version 2.0 of this map will continue the trail past Highway 1# when weather permits.<br>Updated January 4, 2021.</p>
+                <div class="row" style="padding-bottom: 0px">
+                    <h5>Map legend</h5>
+                    <div class="col s12">
+                        <span>
+                            <svg height="25" width="25">
+                                <circle cx="15" cy="15" r="8" stroke="blue" stroke-width="3" fill="#66ccff" fill-opacity="0.5"/>
+                            </svg>
+                        </span>
+                        <span style="padding-bottom: 20px;"><b>
+                            Click circles to view site specific information</b>
+                        </span>
+                    </div>
+                    <div class="col s12">
+                        <span>
+                            <svg height="25" width="30">
+                              <polyline points="5,10 15,10 15,20 25,20"
+                              style="fill:white;stroke:#0d47a1;stroke-width:4" />
+                            </svg>  
+                        </span>
+                        <span style="margin-bottom: 5px;">
+                            <b>Van Horne trail</b>
+                        </span>   
+                    </div>
+                    <div class="col s12">
+                        <span>
+                            <svg height="25" width="30">
+                              <polyline points="5,10 15,10 15,20 25,20"
+                              style="fill:white;stroke:#ff0000;stroke-width:4" />
+                            </svg>  
+                        </span>
+                        <span style="margin-bottom: 5px;">
+                            <b>St Andrews trail</b>
+                        </span>   
+                    </div>
+                </div>
+            </div>
+        </div>
 
     </body>
     
     <script>
+        
+        // initialize and call modal
+        $(document).ready(function(){
+            $('.modal').modal();
+            $('#modal1').modal('open');
+        });
+        
         map();
         function map() {
             // Set up the world map
@@ -50,21 +105,34 @@
             map.setView([45.084,-67.06],14.1); // centered on SA lat, long
             map.addLayer(carto);
             
-            L.geoJSON(geojsonfeatures, {
-                style: function(feature) {
-                    switch (feature.properties.category) {
-                        case 'satrail': return {color: "#ff0000"};
-                        case 'vanhorne':   return {color: "#0d47a1"};
-                        case 'road':   return {color: "#996633"};
-                    }
-                }}).addTo(map);
-                
-
+            L.geoJSON(geojsonfeatures, {style: colorIt, onEachFeature: bindIt} ).addTo(map);
             
-            // Loop to write out circles from test.js
+            function colorIt(feature) {
+                switch (feature.properties.category) {
+                    case 'satrail': return {color: "#ff0000"};
+                    case 'vanhorne':   return {color: "#0d47a1"};
+                    case 'barroad':   return {color: "#996633"};
+                }
+            }
+            
+            function bindIt(feature, layer) {
+                var cat = feature.properties.category;
+                if (cat == 'satrail') {
+                    var pic = "chamnice_th.jpg";
+                    var link = "photos/chamnice.jpg";
+                } else if (cat == 'barroad') {
+                    var pic = "bar.png";
+                    var link = "https://goo.gl/maps/8ofRFNLS7Jo8SM4C8";         
+                } else {
+                    var pic = "vanhorne.png"
+                    var link = "http://www.hikingnb.ca/Trails/FundyWest/StAndrews/VanHorne.html"
+                }
+                layer.bindPopup("<h5>" + feature.properties.name + "</h5><p>" + feature.properties.desc + "</p><br><a href='" + link + "' target='_blank'><img src='photos/" + pic + "'></a>");
+            }
+                
+            // Loop to write out circles from data.js
             //conf_x_factor = 5;
             for (i=0;i<data.length;i++) {
-                console.log(data[i]);
                 L.circle(data[i]['coordinates'],{color:'blue',fillColor:'#66ccff',fillOpacity:0.5,radius: 30}).addTo(map).bindPopup("<h5>" + data[i]['name'] + "</h5><p>" + data[i]['desc'] + "</p><br><a href='photos/" + data[i]['photo'] + ".jpg' target='_blank'><img src='photos/" + data[i]['photo'] + "_th.jpg'></a>");    
             }
         }
