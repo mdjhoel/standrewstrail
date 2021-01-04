@@ -3,8 +3,8 @@ geojsonfeatures = {
     "features": [{
         "type": "Feature",
         "properties": {
-            "name": "st andrews trail",
-            "description": null,
+            "name": "St Andrews trail",
+            "desc": "An unmaintained trail that extends from Bar road to Lawrence Station and hopefully to McAdam (unsubstantiated).",
             "tessellate": 1,
             "shape": "Line",
             "category": "satrail",
@@ -263,10 +263,10 @@ geojsonfeatures = {
         "type": "Feature",
         "properties": {
             "name": "Bar road connector",
-            "description": null,
+            "desc": "The fully maintained Van Horne trail ends at Bar road forcing adventurers to use the St Andrews trail.",
             "tessellate": 1,
             "shape": "Line",
-            "category": "road",
+            "category": "barroad",
             "stroke": "#ff66ff",
             "stroke-width": 2,
             "stroke-opacity": 1,
@@ -286,7 +286,7 @@ geojsonfeatures = {
         "type": "Feature",
         "properties": {
             "name": "Van Horne trail",
-            "description": null,
+            "desc": "Paved trail system maintained by the town of St Andrews, providing an outdoor recreation amenity within the municipal boundaries",
             "tessellate": 1,
             "shape": "Line",
             "category": "vanhorne",
