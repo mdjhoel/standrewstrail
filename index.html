@@ -43,7 +43,7 @@
             <div class="modal-content">
                 <h4>St Andrews Trail version 1.0</h4>
                 <p>The Van Horne trail is great for short walks in town, but what about longer bike rides, through hikes and connections to the NB trail system? This site aims to fill in the blanks left by <a href="https://goo.gl/maps/D5xHeoD7GiPTvoHH7" target="_blank">Google Maps</a> and provide an up to date map on the St Andrews trail - our adventure connection to the interior of New Brunswick.</p>
-                <p>Version 2.0 of this map will continue the trail past Highway 1# when weather permits.<br>Updated January 4, 2021.</p>
+                <p>Version 2.0 of this map will continue the trail past Highway 1# when weather permits.<br>Updated January 6, 2021.</p>
                 <div class="row" style="padding-bottom: 0px">
                     <h5>Map legend</h5>
                     <div class="col s12">
@@ -112,6 +112,7 @@
                     case 'satrail': return {color: "#ff0000"};
                     case 'vanhorne':   return {color: "#0d47a1"};
                     case 'barroad':   return {color: "#996633"};
+                    case 'fryeroad':   return {color: "#996633"};
                 }
             }
             
@@ -123,6 +124,9 @@
                 } else if (cat == 'barroad') {
                     var pic = "bar.png";
                     var link = "https://goo.gl/maps/8ofRFNLS7Jo8SM4C8";         
+                } else if (cat == 'fryeroad') {
+                    var pic = "frye.png";
+                    var link = "https://goo.gl/maps/LJp1bad5dcfAzBDg8";      
                 } else {
                     var pic = "vanhorne.png"
                     var link = "http://www.hikingnb.ca/Trails/FundyWest/StAndrews/VanHorne.html"
