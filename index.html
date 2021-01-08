@@ -108,30 +108,11 @@
             L.geoJSON(geojsonfeatures, {style: colorIt, onEachFeature: bindIt} ).addTo(map);
             
             function colorIt(feature) {
-                switch (feature.properties.category) {
-                    case 'satrail': return {color: "#ff0000"};
-                    case 'vanhorne':   return {color: "#0d47a1"};
-                    case 'barroad':   return {color: "#996633"};
-                    case 'fryeroad':   return {color: "#996633"};
-                }
+                return {color: feature.properties.stroke};
             }
             
-            function bindIt(feature, layer) {
-                var cat = feature.properties.category;
-                if (cat == 'satrail') {
-                    var pic = "chamnice_th.jpg";
-                    var link = "photos/chamnice.jpg";
-                } else if (cat == 'barroad') {
-                    var pic = "bar.png";
-                    var link = "https://goo.gl/maps/8ofRFNLS7Jo8SM4C8";         
-                } else if (cat == 'fryeroad') {
-                    var pic = "frye.png";
-                    var link = "https://goo.gl/maps/LJp1bad5dcfAzBDg8";      
-                } else {
-                    var pic = "vanhorne.png"
-                    var link = "http://www.hikingnb.ca/Trails/FundyWest/StAndrews/VanHorne.html"
-                }
-                layer.bindPopup("<h5>" + feature.properties.name + "</h5><p>" + feature.properties.desc + "</p><br><a href='" + link + "' target='_blank'><img src='photos/" + pic + "'></a>");
+            function bindIt(feature, layer) {                
+                layer.bindPopup("<h5>" + feature.properties.name + "</h5><p>" + feature.properties.desc + "</p><br><a href='" + feature.properties.link + "' target='_blank'><img src='photos/" + feature.properties.pic + "'></a>");
             }
                 
             // Loop to write out circles from data.js
