@@ -12,7 +12,9 @@ geojsonfeatures = {
             "stroke-width": 2,
             "stroke-opacity": 1,
             "fill": "#00f900",
-            "fill-opacity": 0.5
+            "fill-opacity": 0.5,
+            "pic": "chamnice_th.jpg",
+            "link": "photos/chamnice.jpg"
         },
         "geometry": {
             "type": "LineString",
@@ -325,11 +327,13 @@ geojsonfeatures = {
             "tessellate": 1,
             "shape": "Line",
             "category": "barroad",
-            "stroke": "#ff66ff",
+            "stroke": "#996633",
             "stroke-width": 2,
             "stroke-opacity": 1,
             "fill": null,
-            "fill-opacity": null
+            "fill-opacity": null,
+            "pic": "bar.png",
+            "link": "https://goo.gl/maps/8ofRFNLS7Jo8SM4C8"
         },
         "geometry": {
             "type": "LineString",
@@ -348,11 +352,13 @@ geojsonfeatures = {
             "tessellate": 1,
             "shape": "Line",
             "category": "fryeroad",
-            "stroke": "#ff66ff",
+            "stroke": "#996633",
             "stroke-width": 2,
             "stroke-opacity": 1,
             "fill": null,
-            "fill-opacity": null
+            "fill-opacity": null,
+            "pic": "frye.png",
+            "link": "https://goo.gl/maps/LJp1bad5dcfAzBDg8"
         },
         "geometry": {
             "type": "LineString",
@@ -385,11 +391,13 @@ geojsonfeatures = {
             "tessellate": 1,
             "shape": "Line",
             "category": "vanhorne",
-            "stroke": "#33cc33",
+            "stroke": "#0d47a1",
             "stroke-width": 2,
             "stroke-opacity": 1,
             "fill": null,
-            "fill-opacity": null
+            "fill-opacity": null,
+            "pic": "vanhorne.png",
+            "link": "http://www.hikingnb.ca/Trails/FundyWest/StAndrews/VanHorne.html"
         },
         "geometry": {
             "type": "LineString",
