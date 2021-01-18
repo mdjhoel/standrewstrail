@@ -49,7 +49,7 @@
                     <div class="col s12">
                         <span>
                             <svg height="25" width="25">
-                                <circle cx="15" cy="15" r="8" stroke="blue" stroke-width="3" fill="#66ccff" fill-opacity="0.5"/>
+                                <circle cx="15" cy="15" r="8" stroke="#33cc33" stroke-width="3" fill="#33cc33" fill-opacity="0.5"/>
                             </svg>
                         </span>
                         <span style="padding-bottom: 20px;"><b>
@@ -118,7 +118,15 @@
             // Loop to write out circles from data.js
             //conf_x_factor = 5;
             for (i=0;i<data.length;i++) {
-                L.circle(data[i]['coordinates'],{color:'blue',fillColor:'#66ccff',fillOpacity:0.5,radius: 30}).addTo(map).bindPopup("<h5>" + data[i]['name'] + "</h5><p>" + data[i]['desc'] + "</p><br><a href='photos/" + data[i]['photo'] + ".jpg' target='_blank'><img src='photos/" + data[i]['photo'] + "_th.jpg'></a>");    
+                rating = data[i].rating;
+                radius = 30; ratingcolor = "#33cc33";
+                if (rating == 1) { 
+                    radius = 50; ratingcolor = "#ff00ff"; 
+                } 
+                if (rating == 2) {
+                    radius = 90; ratingcolor = "#ff0000";
+                }
+                L.circle(data[i]['coordinates'],{color:ratingcolor,fillColor:ratingcolor,fillOpacity:0.5,radius: radius}).addTo(map).bindPopup("<h5>" + data[i]['name'] + "</h5><p>" + data[i]['desc'] + "</p><br><a href='photos/" + data[i]['photo'] + ".jpg' target='_blank'><img src='photos/" + data[i]['photo'] + "_th.jpg'></a>");    
             }
         }
     
